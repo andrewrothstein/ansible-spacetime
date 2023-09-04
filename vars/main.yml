@@ -1,0 +1,12 @@
+---
+# vars file for spacetime
+spacetime_os: '{{ ansible_system | lower }}'
+spacetime_arch: '{{ spacetime_arch_map[ansible_architecture] }}'
+spacetime_platform: '{{ spacetime_os }}-{{ spacetime_arch }}'
+spacetime_url: '{{ spacetime_mirror }}/v{{ spacetime_ver }}/spacetime.{{ spacetime_platform }}.tar.gz'
+spacetime_checksum: '{{ spacetime_checksums[spacetime_ver][spacetime_platform] }}'
+spacetime_name: spacetime.{{ spacetime_ver }}.{{ spacetime_platform }}
+spacetime_tmp_archive: '{{ spacetime_tmpdir | default("/tmp") }}/{{ spacetime_name }}.tar.gz'
+spacetime_install_dir: '{{ spacetime_parent_install_dir }}/{{ spacetime_name }}'
+spacetime_install_exe: '{{ spacetime_install_dir }}/spacetime'
+spacetime_link: '{{ spacetime_parent_install_dir }}/bin/spacetime'

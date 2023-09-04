@@ -1,0 +1,56 @@
+---
+- include_role:
+    name: andrewrothstein.unarchivedeps
+- name: resolve platform specific vars
+  include_vars: '{{ item }}'
+  with_first_found:
+    - files:
+        - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
+        - '{{ ansible_distribution }}.yml'
+        - '{{ ansible_os_family }}.yml'
+      skip: true
+      paths:
+        - '{{ role_path }}/vars'
+- name: check for install at {{ spacetime_install_exe }}
+  stat:
+    path: '{{ spacetime_install_exe }}'
+  register: spacetime_binary
+- when: not spacetime_binary.stat.exists
+  block:
+    - name: downloading {{ spacetime_url }} to {{ spacetime_tmp_archive }}
+      become: true
+      become_user: root
+      get_url:
+        url: '{{ spacetime_url }}'
+        dest: '{{ spacetime_tmp_archive }}'
+        checksum: '{{ spacetime_checksum }}'
+        mode: 0644
+    - name: mkdir {{ spacetime_install_dir }}
+      become: true
+      become_user: root
+      file:
+        path: '{{ spacetime_install_dir }}'
+        state: directory
+        mode: 0755
+    - name: unarchiving {{ spacetime_tmp_archive }}
+      become: true
+      become_user: root
+      unarchive:
+        remote_src: true
+        src: '{{ spacetime_tmp_archive }}'
+        dest: '{{ spacetime_install_dir }}'
+        creates: '{{ spacetime_install_exe }}'
+  always:
+    - name: rm -f {{ spacetime_tmp_archive }}
+      become: true
+      become_user: root
+      file:
+        path: '{{ spacetime_tmp_archive }}'
+        state: absent
+- name: linking {{ spacetime_link }} to {{ spacetime_install_exe }}
+  become: true
+  become_user: root
+  file:
+    src: '{{ spacetime_install_exe }}'
+    dest: '{{ spacetime_link }}'
+    state: link
