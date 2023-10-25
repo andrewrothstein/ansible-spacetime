@@ -1,0 +1,18 @@
+[
+  {
+    "OS": "debian",
+    "OS_VER": "bookworm"
+  },
+  {
+    "OS": "fedora",
+    "OS_VER": "37"
+  },
+  {
+    "OS": "fedora",
+    "OS_VER": "38"
+  },
+  {
+    "OS": "ubuntu",
+    "OS_VER": "jammy"
+  }
+]
