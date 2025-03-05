@@ -4,10 +4,17 @@
   roles:
     - role: '{{ playbook_dir }}'
   tasks:
-    - name: Executing 'spacetime version'
-      ansible.builtin.command: spacetime version
+    - name: Executing 'spacetimedb-cli --version'
+      ansible.builtin.command: spacetimedb-cli --version
       changed_when: false
-      register: spacetime_test_output
-    - name: Output from 'spacetime version'
+      register: spacetime_cli_test_output
+    - name: Output from 'spacetimedb-cli --version'
       ansible.builtin.debug:
-        msg: '{{ spacetime_test_output.stdout }}'
+        msg: '{{ spacetime_cli_test_output.stdout }}'
+    - name: Executing 'spacetimedb-standalone --version'
+      ansible.builtin.command: spacetimedb-standalone --version
+      changed_when: false
+      register: spacetime_standalone_test_output
+    - name: Output from 'spacetimedb-standalone --version'
+      ansible.builtin.debug:
+        msg: '{{ spacetime_standalone_test_output.stdout }}'

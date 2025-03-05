@@ -1,7 +1,4 @@
 ---
-- name: Installing andrewrothstein.unarchivedeps
-  ansible.builtin.include_role:
-    name: andrewrothstein.unarchivedeps
 - name: Resolve platform specific vars
   ansible.builtin.include_vars: '{{ item }}'
   with_first_found:
@@ -12,9 +9,9 @@
       skip: true
       paths:
         - '{{ role_path }}/vars'
-- name: Check for install at {{ spacetime_install_exe }}
+- name: Check for installation at {{ spacetime_cli_exe }}
   ansible.builtin.stat:
-    path: '{{ spacetime_install_exe }}'
+    path: '{{ spacetime_cli_exe }}'
   register: spacetime_binary
 - name: Downloading and installing SpacetimeDB
   when: not spacetime_binary.stat.exists
@@ -34,6 +31,9 @@
         path: '{{ spacetime_install_dir }}'
         state: directory
         mode: '755'
+    - name: Installing andrewrothstein.unarchivedeps
+      ansible.builtin.include_role:
+        name: andrewrothstein.unarchivedeps
     - name: Unarchiving {{ spacetime_tmp_archive }}
       become: true
       become_user: root
@@ -41,7 +41,7 @@
         remote_src: true
         src: '{{ spacetime_tmp_archive }}'
         dest: '{{ spacetime_install_dir }}'
-        creates: '{{ spacetime_install_exe }}'
+        creates: '{{ spacetime_cli_exe }}'
   always:
     - name: Rm -f {{ spacetime_tmp_archive }}
       become: true
@@ -49,10 +49,13 @@
       ansible.builtin.file:
         path: '{{ spacetime_tmp_archive }}'
         state: absent
-- name: Linking {{ spacetime_link }} to {{ spacetime_install_exe }}
+- name: Linking from {{ spacetime_install_dir }} to {{ spacetime_links_dir }}...
+  with_items:
+    - spacetimedb-cli
+    - spacetimedb-standalone
   become: true
   become_user: root
   ansible.builtin.file:
-    src: '{{ spacetime_install_exe }}'
-    dest: '{{ spacetime_link }}'
+    src: '{{ spacetime_install_dir }}/{{ item }}'
+    dest: '{{ spacetime_links_dir }}/{{ item }}'
     state: link

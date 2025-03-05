@@ -8,5 +8,7 @@ spacetime_checksum: '{{ spacetime_checksums[spacetime_ver][spacetime_platform] }
 spacetime_name: spacetime.{{ spacetime_ver }}.{{ spacetime_platform }}
 spacetime_tmp_archive: '{{ spacetime_tmpdir | default("/tmp") }}/{{ spacetime_name }}.tar.gz'
 spacetime_install_dir: '{{ spacetime_parent_install_dir }}/{{ spacetime_name }}'
-spacetime_install_exe: '{{ spacetime_install_dir }}/spacetime'
-spacetime_link: '{{ spacetime_parent_install_dir }}/bin/spacetime'
+
+spacetime_cli_exe: '{{ spacetime_install_dir }}/spacetimedb-cli'
+spacetime_links_dir: '{{ spacetime_parent_install_dir }}/bin'
+spacetime_link: '{{ spacetime_links_dir }}/spacetime-cli'
