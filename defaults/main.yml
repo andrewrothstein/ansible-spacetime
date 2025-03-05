@@ -1,35 +1,25 @@
 ---
 # defaults file for spacetime
-spacetime_ver: 0.7.1-beta-hotfix1
+spacetime_ver: 1.0.0
 spacetime_mirror: https://github.com/clockworklabs/SpacetimeDB/releases/download
+
+spacetime_os_map:
+  Darwin: apple-darwin
+  Linux: unknown-linux-gnu
+
 spacetime_arch_map:
-  aarch64: arm64
-  arm64: arm64
-  x86_64: amd64
+  aarch64: aarch64
+  arm64: aarch64
+  x86_64: x86_64
+
 spacetime_parent_install_dir: /usr/local
 spacetime_checksums:
-  '0.6.0-beta':
-    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v0.6.0-beta/spacetime.darwin-amd64.tar.gz
-    darwin-amd64: sha256:38225c989219569a9d162625932184f7d7b3f902a84bda99628b8dba796228e4
-    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v0.6.0-beta/spacetime.darwin-arm64.tar.gz
-    darwin-arm64: sha256:64534d142f6618c7bb6be9a0b19f7b7185069cb842afa0df086d1e2fcf7e7f29
-    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v0.6.0-beta/spacetime.linux-amd64.tar.gz
-    linux-amd64: sha256:c2ea19eb0950dbdb44821c4c95d1c4e3743cf6d76dca32aa991b5b9f014312da
-  '0.6.1-beta':
-    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v0.6.1-beta/spacetime.darwin-amd64.tar.gz
-    darwin-amd64: sha256:f6a1a3cc8254ca41a50f08bc99ed131b9d07a889b3293fa57f2e48b8987201e9
-    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v0.6.1-beta/spacetime.darwin-arm64.tar.gz
-    darwin-arm64: sha256:40c553be7246d709a08ccf07a20e73db2503127853c256b3de9fff4a95062db2
-    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v0.6.1-beta/spacetime.linux-amd64.tar.gz
-    linux-amd64: sha256:dfd424d500367a6c09a95c5f4fe172e7187897c69537621f07f2eb0e3ec59e31
-    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v0.6.1-beta/spacetime.linux-arm64.tar.gz
-    linux-arm64: sha256:480f75c2751574d266276fa4066f3ee9328a208931920467c2b7bc9634ee1793
-  '0.7.1-beta-hotfix1':
-    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v0.7.1-beta-hotfix1/spacetime.darwin-amd64.tar.gz
-    darwin-amd64: sha256:92a726a36a371a95d8a008c220b3cec92f8f8ab14b5b599bcb4fa9f912c73947
-    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v0.7.1-beta-hotfix1/spacetime.darwin-arm64.tar.gz
-    darwin-arm64: sha256:df67f355be45ec256e4a627a0fbc9df1487c3df8d3fa49d3ca0ad1d6889ec7bf
-    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v0.7.1-beta-hotfix1/spacetime.linux-amd64.tar.gz
-    linux-amd64: sha256:bddfbeee3e5fa76d6999a24254c85ce78b93ffbd58ea771b211d076b40fb52ad
-    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v0.7.1-beta-hotfix1/spacetime.linux-arm64.tar.gz
-    linux-arm64: sha256:08688c64ecc189227373295c324acde7bdd0f9657177662a00a3a505eea9681d
+  '1.0.0':
+    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v1.0.0/spacetime-aarch64-apple-darwin.tar.gz
+    aarch64-apple-darwin: sha256:1e93e8a25eea5705f4d6287a1e10bf826ff6e44f09c6d720bc1bba4525392421
+    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v1.0.0/spacetime-x86_64-apple-darwin.tar.gz
+    x86_64-apple-darwin: sha256:d1e6ec3706719883724cf6b63548825ad30995e161c804d8151a0b5705fbfbcb
+    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v1.0.0/spacetime-aarch64-unknown-linux-gnu.tar.gz
+    aarch64-unknown-linux-gnu: sha256:9aa0fcd339c6124d0a525a7d38935a9d4269942bf0203264d25d1825a7878118
+    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v1.0.0/spacetime-x86_64-unknown-linux-gnu.tar.gz
+    x86_64-unknown-linux-gnu: sha256:87ee28789393408a0b41e5c57844364c9981b3f63795c9a72a84107c366e371b

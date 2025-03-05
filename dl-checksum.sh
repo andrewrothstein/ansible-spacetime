@@ -9,16 +9,21 @@ dl()
     local os=$2
     local arch=$3
     local archive_type=${4:-tar.gz}
-    local platform="${os}-${arch}"
-    local url="${MIRROR}/v${ver}${file}/spacetime.${platform}.${archive_type}"
-    local lfile="${DIR}/spacetime.${ver}.${platform}.${archive_type}"
+    local platform="${arch}-${os}"
+    local url="${MIRROR}/v${ver}${file}/spacetime-${platform}.${archive_type}"
+    local lfile="${DIR}/spacetime-${ver}.${platform}.${archive_type}"
 
     if [ ! -e $lfile ];
     then
         curl -sSLf -o $lfile $url
     fi
-    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v0.7.1-beta-hotfix1/spacetime.linux-amd64.tar.gz
-    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v0.6.1-beta/spacetime.darwin-amd64.tar.gz
+
+    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v1.0.0/spacetime-aarch64-apple-darwin.tar.gz
+    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v1.0.0/spacetime-x86_64-apple-darwin.tar.gz
+    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v1.0.0/spacetime-aarch64-unknown-linux-gnu.tar.gz
+    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v1.0.0/spacetime-x86_64-unknown-linux-gnu.tar.gz
+    # https://github.com/clockworklabs/SpacetimeDB/releases/download/v1.0.0/spacetime-x86_64-pc-windows-msvc.zip
+
     printf "    # %s\n" $url
     printf "    %s: sha256:%s\n" $platform $(sha256sum $lfile | awk '{print $1}')
 }
@@ -26,10 +31,10 @@ dl()
 dlver () {
     local ver=$1
     printf "  '%s':\n" $ver
-    dl $ver darwin amd64
-    dl $ver darwin arm64
-    dl $ver linux amd64
-    dl $ver linux arm64
+    dl $ver apple-darwin aarch64
+    dl $ver apple-darwin x86_64
+    dl $ver unknown-linux-gnu aarch64
+    dl $ver unknown-linux-gnu x86_64
 }
 
-dlver ${1:-"0.7.1-beta-hotfix1"}
+dlver ${1:-1.0.0}

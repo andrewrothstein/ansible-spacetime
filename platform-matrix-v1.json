@@ -5,14 +5,18 @@
   },
   {
     "OS": "fedora",
-    "OS_VER": "37"
+    "OS_VER": "40"
   },
   {
     "OS": "fedora",
-    "OS_VER": "38"
+    "OS_VER": "41"
   },
   {
     "OS": "ubuntu",
     "OS_VER": "jammy"
+  },
+  {
+    "OS": "ubuntu",
+    "OS_VER": "noble"
   }
 ]

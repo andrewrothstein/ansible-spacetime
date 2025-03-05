@@ -1,8 +1,9 @@
 ---
-- include_role:
+- name: Installing andrewrothstein.unarchivedeps
+  ansible.builtin.include_role:
     name: andrewrothstein.unarchivedeps
-- name: resolve platform specific vars
-  include_vars: '{{ item }}'
+- name: Resolve platform specific vars
+  ansible.builtin.include_vars: '{{ item }}'
   with_first_found:
     - files:
         - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
@@ -11,46 +12,47 @@
       skip: true
       paths:
         - '{{ role_path }}/vars'
-- name: check for install at {{ spacetime_install_exe }}
-  stat:
+- name: Check for install at {{ spacetime_install_exe }}
+  ansible.builtin.stat:
     path: '{{ spacetime_install_exe }}'
   register: spacetime_binary
-- when: not spacetime_binary.stat.exists
+- name: Downloading and installing SpacetimeDB
+  when: not spacetime_binary.stat.exists
   block:
-    - name: downloading {{ spacetime_url }} to {{ spacetime_tmp_archive }}
+    - name: Downloading {{ spacetime_url }} to {{ spacetime_tmp_archive }}
       become: true
       become_user: root
-      get_url:
+      ansible.builtin.get_url:
         url: '{{ spacetime_url }}'
         dest: '{{ spacetime_tmp_archive }}'
         checksum: '{{ spacetime_checksum }}'
-        mode: 0644
-    - name: mkdir {{ spacetime_install_dir }}
+        mode: '644'
+    - name: Mkdir {{ spacetime_install_dir }}
       become: true
       become_user: root
-      file:
+      ansible.builtin.file:
         path: '{{ spacetime_install_dir }}'
         state: directory
-        mode: 0755
-    - name: unarchiving {{ spacetime_tmp_archive }}
+        mode: '755'
+    - name: Unarchiving {{ spacetime_tmp_archive }}
       become: true
       become_user: root
-      unarchive:
+      ansible.builtin.unarchive:
         remote_src: true
         src: '{{ spacetime_tmp_archive }}'
         dest: '{{ spacetime_install_dir }}'
         creates: '{{ spacetime_install_exe }}'
   always:
-    - name: rm -f {{ spacetime_tmp_archive }}
+    - name: Rm -f {{ spacetime_tmp_archive }}
       become: true
       become_user: root
-      file:
+      ansible.builtin.file:
         path: '{{ spacetime_tmp_archive }}'
         state: absent
-- name: linking {{ spacetime_link }} to {{ spacetime_install_exe }}
+- name: Linking {{ spacetime_link }} to {{ spacetime_install_exe }}
   become: true
   become_user: root
-  file:
+  ansible.builtin.file:
     src: '{{ spacetime_install_exe }}'
     dest: '{{ spacetime_link }}'
     state: link
